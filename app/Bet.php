@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Bet extends Model
 {
-    protected $table = "clients";
+    protected $table = "bets";
     protected $guarded = [];
 
     public function __construct(array $attributes = [])
@@ -14,8 +14,8 @@ class Client extends Model
         parent::construct($attributes);
     }
 
-    public function competitors()
+    public function user()
     {
-        return $this->hasMany('App\Competitor', 'client_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
