@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    Competitors
+                    @lang('competitors.Competitors')
                     <a href="{{route('competitors.create')}}" style="float:right;font-size:18px;">+</a>
                 </div>
 
@@ -20,10 +20,10 @@
                     @if($competitors->count())
                         <table class="table">
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Client</th>
-                                <th>Category</th>
+                                <th>@lang('competitors.ID')</th>
+                                <th>@lang('competitors.Name')</th>
+                                <th>@lang('competitors.Client')</th>
+                                <th>@lang('competitors.Category')</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -34,7 +34,7 @@
                                     <td>{{$value->client->name}}</td>
                                     <td>{{$value->category}}</td>
                                     <td>
-                                        <a href="{{route('competitors.edit', [$value->id])}}">edit</a>
+                                        <a href="{{route('competitors.edit', [$value->id])}}">@lang('competitors.edit')</a>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="
@@ -45,7 +45,7 @@
                                                     location.reload();
                                                 }
                                             })
-                                        ">delete</a>
+                                        ">@lang('competitors.delete')</a>
                                     </td>
                                 </tr>
                             @endforeach

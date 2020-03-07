@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    @lang('event.Events')
+                    @lang('events.Events')
                     <a href="{{route('events.create')}}" style="float:right;font-size:18px;">+</a>
                 </div>
 
@@ -20,13 +20,13 @@
                     @if($events->count())
                         <table class="table">
                             <tr>
-                                <th>@lang('event.ID')</th>
-                                <th>@lang('event.Description')</th>
-                                <th>@lang('event.Competitor')</th>
-                                <th>@lang('event.Client')</th>
-                                <th>@lang('event.Software')</th>
-                                <th>@lang('event.Points')</th>
-                                <th>@lang('event.Modified_by<')</th>
+                                <th>@lang('events.ID')</th>
+                                <th>@lang('events.Description')</th>
+                                <th>@lang('events.Competitor')</th>
+                                <th>@lang('events.Client')</th>
+                                <th>@lang('events.Software')</th>
+                                <th>@lang('events.Points')</th>
+                                <th>@lang('events.Modified_by')</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -40,7 +40,7 @@
                                     <td>{{$value->points}}</td>
                                     <td>{{$value->user->name}}</td>
                                     <td>
-                                        <a href="{{route('events.edit', [$value->id])}}">@lang('event.edit')</a>
+                                        <a href="{{route('events.edit', [$value->id])}}">@lang('events.edit')</a>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="
@@ -51,7 +51,7 @@
                                                     location.reload();
                                                 }
                                             })
-                                        ">@lang('event.delete')</a>
+                                        ">@lang('events.delete')</a>
                                     </td>
                                 </tr>
                             @endforeach

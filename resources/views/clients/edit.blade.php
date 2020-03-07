@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Edit client</div>
+                <div class="card-header">@lang('clients.Edit_client')</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,9 +17,14 @@
                     <form class="form-group" action="{{route('clients.update', [$client->id])}}" method="post">
                         @csrf
                         <input type="hidden" name="_method" value="put" />
-                        <input class="form-control" type="text" name="name" value="{{$client->name}}">
-                        <button class="btn btn-primary" type="submit" name="edit">Edit</button>
-                        <a class="btn btn-info" href="{{route('clients.index')}}">Back</a>
+                        <div class="form-group">
+                            <label for="name">@lang('clients.Name')</label>
+                            <input class="form-control" type="text" name="name" id="name" value="{{$client->name}}">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit" name="edit">@lang('clients.Edit')</button>
+                            <a class="btn btn-info" href="{{route('clients.index')}}">@lang('clients.Back')</a>
+                        </div>
                     </form>
                 </div>
             </div>
