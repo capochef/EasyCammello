@@ -9,7 +9,7 @@ class Client extends Model
     protected $table = "clients";
     protected $guarded = [];
 
-    public function __construct(array $attributes = [])
+    public function construct(array $attributes = [])
     {
         parent::construct($attributes);
     }

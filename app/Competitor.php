@@ -9,7 +9,7 @@ class Competitor extends Model
     protected $table = "competitors";
     protected $guarded = [];
 
-    public function __construct(array $attributes = [])
+    public function construct(array $attributes = [])
     {
         parent::construct($attributes);
     }

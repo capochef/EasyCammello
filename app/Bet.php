@@ -9,7 +9,7 @@ class Bet extends Model
     protected $table = "bets";
     protected $guarded = [];
 
-    public function __construct(array $attributes = [])
+    public function construct(array $attributes = [])
     {
         parent::construct($attributes);
     }

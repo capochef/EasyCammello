@@ -14,7 +14,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::get();
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -35,7 +36,22 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Client::where('name', $request->name)->get()->all() || !$request->name){
+            session([
+                'status' => 'Cliente già esistente'
+            ]);
+            return view('clients.create');
+        }
+
+        try {
+            $client = new Client();
+            $client->name = $request->name;
+            $client->save();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -57,7 +73,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -69,7 +85,21 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        if(Client::where('name', $request->name)->where('id', '<>', $client->id)->get()->all() || !$request->name){
+            session([
+                'status' => 'Nome cliente già esistente'
+            ]);
+            return view('clients.edit', [$client->id]);
+        }
+
+        try {
+            $client->name = $request->name;
+            $client->update();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -80,6 +110,11 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        foreach ($client->competitors as $key => $competitor) {
+            foreach ($competitor->events as $event)
+                $event->delete();
+            $competitor->delete();
+        }
+        $client->delete();
     }
 }

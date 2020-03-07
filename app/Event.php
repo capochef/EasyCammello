@@ -9,7 +9,7 @@ class Event extends Model
     protected $table = "events";
     protected $guarded = [];
 
-    public function __construct(array $attributes = [])
+    public function construct(array $attributes = [])
     {
         parent::construct($attributes);
     }
@@ -17,5 +17,10 @@ class Event extends Model
     public function competitor()
     {
         return $this->belongsTo('App\Competitor', 'competitor_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'modified_by');
     }
 }

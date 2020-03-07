@@ -18,7 +18,6 @@ class CreateCompetitorsTable extends Migration
             $table->string('name');
             $table->string('category');
             $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }

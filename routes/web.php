@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+
+Route::resource('clients', 'ClientController')->middleware('auth');
+Route::resource('competitors', 'CompetitorController')->middleware('auth');
+Route::resource('events', 'EventController')->middleware('auth');

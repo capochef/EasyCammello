@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Competitor;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -14,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::with('competitor.client', 'user')->get();
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -24,7 +26,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $competitors = Competitor::orderBy('name')->get()->pluck('name', 'id');
+        return view('events.create', compact('competitors'));
     }
 
     /**
@@ -35,7 +38,19 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $event = new Event();
+            $event->description = $request->description;
+            $event->competitor_id = $request->competitor;
+            $event->points = $request->points;
+            $event->software = $request->software;
+            $event->modified_by = auth()->id();
+            $event->save();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+        return redirect()->route('events.index');
     }
 
     /**
@@ -57,7 +72,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $competitors = Competitor::orderBy('name')->get()->pluck('name', 'id');
+        return view('events.edit', compact('competitors', 'event'));
     }
 
     /**
@@ -69,7 +85,18 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        try {
+            $event->description = $request->description;
+            $event->competitor_id = $request->competitor;
+            $event->points = $request->points;
+            $event->software = $request->software;
+            $event->modified_by = auth()->id();
+            $event->update();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+        return redirect()->route('events.index');
     }
 
     /**
@@ -80,6 +107,6 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
     }
 }

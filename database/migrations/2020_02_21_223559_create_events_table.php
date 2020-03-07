@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->string('software');
             $table->integer('points');
             $table->integer('competitor_id')->unsigned();
-            $table->foreign('competitor_id')->references('id')->on('competitors');
+            $table->integer('modified_by')->unsigned();
             $table->timestamps();
         });
     }
