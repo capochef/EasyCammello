@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    Clients
+                    @lang('clients.Clients')
                     <a href="{{route('clients.create')}}" style="float:right;font-size:18px;">+</a>
                 </div>
 
@@ -19,8 +19,8 @@
 
                     <table class="table">
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
+                            <th>@lang('clients.ID')</th>
+                            <th>@lang('clients.Name')</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -29,7 +29,7 @@
                                 <td>{{$value->id}}</td>
                                 <td>{{$value->name}}</td>
                                 <td>
-                                    <a href="{{route('clients.edit', [$value->id])}}">edit</a>
+                                    <a href="{{route('clients.edit', [$value->id])}}">@lang('clients.edit')</a>
                                 </td>
                                 <td>
                                     <a href="javascript:void(0)" onclick="
@@ -40,7 +40,7 @@
                                                 location.reload();
                                             }
                                         })
-                                    ">delete</a>
+                                    ">@lang('clients.delete')</a>
                                 </td>
                             </tr>
                         @endforeach

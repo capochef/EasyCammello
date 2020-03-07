@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Edit event</div>
+                <div class="card-header">@lang('events.Edit_event')</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,16 +17,30 @@
                     <form class="form-group" action="{{route('events.update', [$event->id])}}" method="post">
                         @csrf
                         <input type="hidden" name="_method" value="put" />
-                        <input class="form-control" type="text" name="description" value="{{$event->description}}">
-                        <input class="form-control" type="text" name="software" value="{{$event->software}}">
-                        <select class="form-control" name="competitor">
-                            @foreach ($competitors as $key => $value)
-                                <option value="{{$key}}" {{$key==$event->competitor_id?'selected':''}}>{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <input class="form-control" type="text" name="points" value="{{$event->points}}">
-                        <button class="btn btn-primary" type="submit" name="edit">Edit</button>
-                        <a class="btn btn-info" href="{{route('events.index')}}">Back</a>
+                        <div class="form-group">
+                            <label for="description">@lang('events.Description')</label>
+                            <input class="form-control" type="text" name="description" id="description" value="{{$event->description}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="software">@lang('events.Software')</label>
+                            <input class="form-control" type="text" name="software" id="software" value="{{$event->software}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="competitor">@lang('events.Competitor')</label>
+                            <select class="form-control" name="competitor" id="competitor">
+                                @foreach ($competitors as $key => $value)
+                                    <option value="{{$key}}" {{$key==$event->competitor_id?'selected':''}}>{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="points">@lang('events.Points')</label>
+                            <input class="form-control" type="text" name="points" id="points" value="{{$event->points}}">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit" name="edit">@lang('events.Edit')</button>
+                            <a class="btn btn-info" href="{{route('events.index')}}">@lang('events.Back')</a>
+                        </div>
                     </form>
                 </div>
             </div>
