@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Competitor;
+use App\Http\Requests\Competitor as CompetitorRequest;
 use Illuminate\Http\Request;
 
 class CompetitorController extends Controller
@@ -36,23 +37,19 @@ class CompetitorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompetitorRequest $request)
     {
-        if(Competitor::where('name', $request->name)->where('category', $request->category)->where('client_id', $request->client)->get()->all() || !$request->name){
-            session([
-                'status' => 'Concorrente già esistente'
-            ]);
-            return view('competitors.create');
-        }
+        $validated = $request->validated();
 
         try {
             $competitor = new Competitor();
-            $competitor->name = $request->name;
-            $competitor->client_id = $request->client;
-            $competitor->category = $request->category;
+            $competitor->name = $validated->name;
+            $competitor->client_id = $validated->client;
+            $competitor->category = $validated->category;
             $competitor->save();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'danger');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('competitors.index');
@@ -88,22 +85,18 @@ class CompetitorController extends Controller
      * @param  \App\Competitor  $competitor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Competitor $competitor)
+    public function update(CompetitorRequest $request, Competitor $competitor)
     {
-        if(Competitor::where('name', $request->name)->where('category', $request->category)->where('client_id', $request->client)->where('id', '<>', $competitor->id)->get()->all() || !$request->name){
-            session([
-                'status' => 'Nome concorrente già esistente'
-            ]);
-            return view('competitors.edit', [$competitor->id]);
-        }
+        $validated = $request->validated();
 
         try {
-            $competitor->name = $request->name;
-            $competitor->client_id = $request->client;
-            $competitor->category = $request->category;
+            $competitor->name = $validated->name;
+            $competitor->client_id = $validated->client;
+            $competitor->category = $validated->category;
             $competitor->update();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'warning');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('competitors.index');

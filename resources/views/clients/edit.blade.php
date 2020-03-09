@@ -19,7 +19,12 @@
                         <input type="hidden" name="_method" value="put" />
                         <div class="form-group">
                             <label for="name">@lang('clients.Name')</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{$client->name}}">
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name') ?? $client->name}}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit" name="edit">@lang('clients.Edit')</button>

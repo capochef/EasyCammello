@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Bet;
+use App\Competitor;
+use App\Http\Requests\Bet as BetRequest;
 use Illuminate\Http\Request;
 
 class BetController extends Controller
@@ -14,7 +16,8 @@ class BetController extends Controller
      */
     public function index()
     {
-        //
+        $bets = Bet::with('user', 'competitor.client')->get();
+        return view('bets.index', compact('bets'));
     }
 
     /**
@@ -24,7 +27,8 @@ class BetController extends Controller
      */
     public function create()
     {
-        //
+        $competitors = Competitor::get();
+        return view('bets.create', compact('competitors'));
     }
 
     /**
@@ -33,9 +37,22 @@ class BetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BetRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $bet = new Bet();
+            $bet->user_id = auth()->id();
+            $bet->competitor_id = $validated->competitor;
+            $bet->value = $validated->value;
+            $bet->save();
+        } catch (\Exception $e) {
+            session()->flash('type', 'danger');
+            session()->flash('status', $e->getMessage());
+        }
+
+        return redirect()->route('bets.index');
     }
 
     /**
@@ -57,7 +74,8 @@ class BetController extends Controller
      */
     public function edit(Bet $bet)
     {
-        //
+        $competitors = Competitor::get();
+        return view('bets.edit', compact('bet', 'competitors'));
     }
 
     /**
@@ -67,9 +85,20 @@ class BetController extends Controller
      * @param  \App\Bet  $bet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bet $bet)
+    public function update(BetRequest $request, Bet $bet)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $bet->competitor_id = $validated->competitor;
+            $bet->value = $validated->value;
+            $bet->update();
+        } catch (\Exception $e) {
+            session()->flash('type', 'warning');
+            session()->flash('status', $e->getMessage());
+        }
+
+        return redirect()->route('bets.index');
     }
 
     /**
@@ -80,6 +109,6 @@ class BetController extends Controller
      */
     public function destroy(Bet $bet)
     {
-        //
+        $bet->delete();
     }
 }

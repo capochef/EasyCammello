@@ -18,3 +18,4 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('clients', 'ClientController')->middleware('auth');
 Route::resource('competitors', 'CompetitorController')->middleware('auth');
 Route::resource('events', 'EventController')->middleware('auth');
+Route::resource('bets', 'BetController')->middleware('auth');

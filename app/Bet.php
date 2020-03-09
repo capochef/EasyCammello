@@ -18,4 +18,9 @@ class Bet extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function competitor()
+    {
+        return $this->belongsTo('App\Competitor', 'competitor_id');
+    }
 }
