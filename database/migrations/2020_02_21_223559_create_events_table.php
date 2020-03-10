@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('description');
-            $table->string('software');
+            $table->string('software')->nullable();
             $table->integer('points');
             $table->integer('competitor_id')->unsigned();
             $table->integer('modified_by')->unsigned();

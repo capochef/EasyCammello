@@ -36,6 +36,9 @@
                         @guest
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('bets.index')}}">@lang('bets.Bets')</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('events.index')}}">@lang('events.Events')</a>
                             </li>
                             <li class="nav-item">

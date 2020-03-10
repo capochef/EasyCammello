@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Requests\Client as ClientRequest;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -34,21 +35,17 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-        if(Client::where('name', $request->name)->get()->all() || !$request->name){
-            session([
-                'status' => 'Cliente già esistente'
-            ]);
-            return view('clients.create');
-        }
+        $validated = $request->validated();
 
         try {
             $client = new Client();
-            $client->name = $request->name;
+            $client->name = $validated->name;
             $client->save();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'danger');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('clients.index');
@@ -83,20 +80,16 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(ClientRequest $request, Client $client)
     {
-        if(Client::where('name', $request->name)->where('id', '<>', $client->id)->get()->all() || !$request->name){
-            session([
-                'status' => 'Nome cliente già esistente'
-            ]);
-            return view('clients.edit', [$client->id]);
-        }
+        $validated = $request->validated();
 
         try {
-            $client->name = $request->name;
+            $client->name = $validated->name;
             $client->update();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'warning');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('clients.index');

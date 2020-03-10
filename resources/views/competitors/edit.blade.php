@@ -19,19 +19,34 @@
                         <input type="hidden" name="_method" value="put" />
                         <div class="form-group">
                             <label for="name">@lang('competitors.Name')</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{$competitor->name}}">
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name') ?? $competitor->name}}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="category">@lang('competitors.Category')</label>
-                            <input class="form-control" type="text" name="category" id="category" value="{{$competitor->category}}">
+                            <input class="form-control @error('category') is-invalid @enderror" type="text" name="category" id="category" value="{{old('category') ?? $competitor->category}}">
+                            @error('category')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="client">@lang('competitors.Client')</label>
-                            <select class="form-control" name="client" id="client">
+                            <select class="form-control @error('client') is-invalid @enderror" name="client" id="client">
                                 @foreach ($clients as $key => $value)
                                     <option value="{{$key}}" {{$key==$competitor->competitor_id?'selected':''}}>{{$value}}</option>
                                 @endforeach
                             </select>
+                            @error('client')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit" name="edit">@lang('competitors.Edit')</button>

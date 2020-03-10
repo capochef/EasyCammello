@@ -19,23 +19,43 @@
                         <input type="hidden" name="_method" value="put" />
                         <div class="form-group">
                             <label for="description">@lang('events.Description')</label>
-                            <input class="form-control" type="text" name="description" id="description" value="{{$event->description}}">
+                            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{old('description') ?? $event->description}}">
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="software">@lang('events.Software')</label>
-                            <input class="form-control" type="text" name="software" id="software" value="{{$event->software}}">
+                            <input class="form-control @error('software') is-invalid @enderror" type="text" name="software" id="software" value="{{old('software') ?? $event->software}}">
+                            @error('software')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="competitor">@lang('events.Competitor')</label>
-                            <select class="form-control" name="competitor" id="competitor">
+                            <select class="form-control @error('competitor') is-invalid @enderror" name="competitor" id="competitor">
                                 @foreach ($competitors as $key => $value)
                                     <option value="{{$key}}" {{$key==$event->competitor_id?'selected':''}}>{{$value}}</option>
                                 @endforeach
                             </select>
+                            @error('competitor')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="points">@lang('events.Points')</label>
-                            <input class="form-control" type="text" name="points" id="points" value="{{$event->points}}">
+                            <input class="form-control @error('points') is-invalid @enderror" type="text" name="points" id="points" value="{{old('points') ?? $event->points}}">
+                            @error('points')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit" name="edit">@lang('events.Edit')</button>

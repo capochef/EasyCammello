@@ -17,6 +17,7 @@ class CreateBetsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('value');
             $table->integer('user_id')->unsigned();
+            $table->integer('competitor_id')->unsigned();
             $table->timestamps();
         });
     }

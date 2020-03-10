@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Competitor;
+use App\Http\Requests\Event as EventRequest;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -36,18 +37,21 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
+        $validated = $request->validated();
+
         try {
             $event = new Event();
-            $event->description = $request->description;
-            $event->competitor_id = $request->competitor;
-            $event->points = $request->points;
-            $event->software = $request->software;
+            $event->description = $validated->description;
+            $event->competitor_id = $validated->competitor;
+            $event->points = $validated->points;
+            $event->software = $validated->software;
             $event->modified_by = auth()->id();
             $event->save();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'danger');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('events.index');
@@ -83,17 +87,20 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(EventRequest $request, Event $event)
     {
+        $validated = $request->validated();
+
         try {
-            $event->description = $request->description;
-            $event->competitor_id = $request->competitor;
-            $event->points = $request->points;
-            $event->software = $request->software;
+            $event->description = $validated->description;
+            $event->competitor_id = $validated->competitor;
+            $event->points = $validated->points;
+            $event->software = $validated->software;
             $event->modified_by = auth()->id();
             $event->update();
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('type', 'warning');
+            session()->flash('status', $e->getMessage());
         }
 
         return redirect()->route('events.index');
