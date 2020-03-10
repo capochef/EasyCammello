@@ -13,9 +13,51 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'antonio',
-            'email' => 'antoniomuzzolini@yahoo.it',
-            'password' => Hash::make('a2IMc5gS!'),
+            'email' => 'antonio@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
             'admin' => 1,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'michele',
+            'email' => 'michele@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'montse',
+            'email' => 'montse@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'elena',
+            'email' => 'elena@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'elisabetta',
+            'email' => 'elisabetta@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'fabio',
+            'email' => 'fabio@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'giulia',
+            'email' => 'giulia@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'domenico',
+            'email' => 'domenico@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
         ]);
         DB::table('clients')->insert([
             'name' => 'UniDemo'
