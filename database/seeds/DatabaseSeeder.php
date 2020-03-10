@@ -30,6 +30,12 @@ class DatabaseSeeder extends Seeder
             'admin' => 0,
         ]);
         DB::table('users')->insert([
+            'name' => 'sara',
+            'email' => 'sara@easystaff.it',
+            'password' => Hash::make('Easy2020!'),
+            'admin' => 0,
+        ]);
+        DB::table('users')->insert([
             'name' => 'elena',
             'email' => 'elena@easystaff.it',
             'password' => Hash::make('Easy2020!'),
