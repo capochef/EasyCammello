@@ -26,7 +26,8 @@ class Competitor extends FormRequest
         return [
             'name' => 'required|unique:competitors|max:255',
             'category' => 'sometimes|max:255',
-            'client' => 'exists:clients',
+            'client' => 'required',
+            // 'client' => 'exists:clients',
         ];
     }
 }
