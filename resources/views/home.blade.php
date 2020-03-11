@@ -19,8 +19,8 @@
 
                     @foreach ($competitors as $competitor)
                         <div class="col-12">
-                            <label for="camello_{{$competitor->id}}">{{$competitor->name}}-{{$competitor->client->name}}</label>
-                            <img id="camello_{{$competitor->id}}" style="padding-left:{{(5+$competitor['points']*70)}}%;height:60px" title="{{$competitor->name}}-{{$competitor->client->name}}" src="{{asset('images/running-camel.gif')}}"></img>
+                            <label for="camello_{{$competitor->id}}" style="width:100px;">{{$competitor->name}}-{{$competitor->client->name}}</label>
+                            <img class="cammello" id="camello_{{$competitor->id}}" style="padding-left:5%;height:60px" title="{{$competitor->name}}-{{$competitor->client->name}}" src="{{asset('images/running-camel.gif')}}"></img>
                         </div>
                     @endforeach
                     </div>
@@ -30,3 +30,14 @@
     </div>
 </div>
 @endsection
+
+@push('after-scripts')
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        @foreach ($competitors as $competitor)
+            $('#camello_{{$competitor->id}}').animate({paddingLeft: "+={{$competitor['points']*70}}%"}, 1500);
+        @endforeach
+    })
+</script>
+@endpush
