@@ -24,7 +24,7 @@ class Bet extends FormRequest
     public function rules()
     {
         return [
-            'competitor_id' => 'exists:competitors',
+            'competitor_id' => 'required|exists:competitors,id',
             'value' => 'numeric'
         ];
     }
