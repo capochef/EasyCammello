@@ -26,7 +26,7 @@ class Event extends FormRequest
         return [
             'description' => 'required|max:255',
             'software' => 'sometimes|max:255',
-            'competitor_id' => 'exists:competitors',
+            'competitor' => 'exists:competitors',
             'points' => 'numeric'
         ];
     }
