@@ -43,9 +43,9 @@ class CompetitorController extends Controller
 
         try {
             $competitor = new Competitor();
-            $competitor->name = $validated->name;
-            $competitor->client_id = $validated->client;
-            $competitor->category = $validated->category;
+            $competitor->name = $validated['name'];
+            $competitor->client_id = $validated['client'];
+            $competitor->category = $validated['category'];
             $competitor->save();
         } catch (\Exception $e) {
             session()->flash('type', 'danger');
@@ -90,9 +90,9 @@ class CompetitorController extends Controller
         $validated = $request->validated();
 
         try {
-            $competitor->name = $validated->name;
-            $competitor->client_id = $validated->client;
-            $competitor->category = $validated->category;
+            $competitor->name = $validated['name'];
+            $competitor->client_id = $validated['client'];
+            $competitor->category = $validated['category'];
             $competitor->update();
         } catch (\Exception $e) {
             session()->flash('type', 'warning');

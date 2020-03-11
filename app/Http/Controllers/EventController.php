@@ -43,10 +43,10 @@ class EventController extends Controller
 
         try {
             $event = new Event();
-            $event->description = $validated->description;
-            $event->competitor_id = $validated->competitor;
-            $event->points = $validated->points;
-            $event->software = $validated->software;
+            $event->description = $validated['description'];
+            $event->competitor_id = $validated['competitor'];
+            $event->points = $validated['points'];
+            $event->software = $validated['software'];
             $event->modified_by = auth()->id();
             $event->save();
         } catch (\Exception $e) {
@@ -92,10 +92,10 @@ class EventController extends Controller
         $validated = $request->validated();
 
         try {
-            $event->description = $validated->description;
-            $event->competitor_id = $validated->competitor;
-            $event->points = $validated->points;
-            $event->software = $validated->software;
+            $event->description = $validated['description'];
+            $event->competitor_id = $validated['competitor'];
+            $event->points = $validated['points'];
+            $event->software = $validated['software'];
             $event->modified_by = auth()->id();
             $event->update();
         } catch (\Exception $e) {

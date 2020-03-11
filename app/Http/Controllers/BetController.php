@@ -44,8 +44,8 @@ class BetController extends Controller
         try {
             $bet = new Bet();
             $bet->user_id = auth()->id();
-            $bet->competitor_id = $validated->competitor;
-            $bet->value = $validated->value;
+            $bet->competitor_id = $validated['competitor'];
+            $bet->value = $validated['value'];
             $bet->save();
         } catch (\Exception $e) {
             session()->flash('type', 'danger');
@@ -90,8 +90,8 @@ class BetController extends Controller
         $validated = $request->validated();
 
         try {
-            $bet->competitor_id = $validated->competitor;
-            $bet->value = $validated->value;
+            $bet->competitor_id = $validated['competitor'];
+            $bet->value = $validated['value'];
             $bet->update();
         } catch (\Exception $e) {
             session()->flash('type', 'warning');

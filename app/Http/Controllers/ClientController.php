@@ -41,7 +41,7 @@ class ClientController extends Controller
 
         try {
             $client = new Client();
-            $client->name = $validated->name;
+            $client->name = $validated['name'];
             $client->save();
         } catch (\Exception $e) {
             session()->flash('type', 'danger');
@@ -85,7 +85,7 @@ class ClientController extends Controller
         $validated = $request->validated();
 
         try {
-            $client->name = $validated->name;
+            $client->name = $validated['name'];
             $client->update();
         } catch (\Exception $e) {
             session()->flash('type', 'warning');
